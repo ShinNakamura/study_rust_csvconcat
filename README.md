@@ -49,3 +49,9 @@ n-09,Jen,48
 ```
 
 ヘッダ行は先頭行にだけ登場する
+
+## 参考
+
+- [Crate csv](https://docs.rs/csv/latest/csv/)
+- [Rust By Example 日本語版 - open](https://doc.rust-jp.rs/rust-by-example-ja/std_misc/file/open.html)
+
