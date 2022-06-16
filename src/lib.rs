@@ -2,6 +2,7 @@ use std::io;
 use std::fs::File;
 use std::path::Path;
 use csv;
+use glob::glob;
 
 type MyResult = Result<(), Box<dyn std::error::Error>>;
 
@@ -40,7 +41,15 @@ fn get_csvpaths() -> Vec<String> {
             is_cmd_name = false;
             continue;
         }
-        csvpaths.push(arg.to_string());
+        for entry in glob(&arg).unwrap() {
+            match entry {
+                Ok(path) => csvpaths.push(path.to_string_lossy().to_owned().to_string()),
+                Err(e) => {
+                    eprintln!("{}", e);
+                    std::process::exit(1);
+                },
+            }
+        }
     }
     csvpaths
 }
