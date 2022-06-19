@@ -1,14 +1,14 @@
 use std::io;
 use std::fs::File;
 use std::path::Path;
-use csv;
 use glob::glob;
 
 type MyResult = Result<(), Box<dyn std::error::Error>>;
 
 pub fn run() -> MyResult {
-    let out = io::stdout();
-    let mut wtr = csv::Writer::from_writer(out.lock());
+    let stdout = io::stdout();
+    let out = io::BufWriter::new(stdout.lock());
+    let mut wtr = csv::Writer::from_writer(out);
     let mut is_first_csv = true;
     for csvpath in  get_csvpaths() {
         let csvpath = Path::new(&csvpath);
